@@ -17,8 +17,6 @@ public class EnderecoController {
     @Autowired
     private ZupperRepository zupperRepository;
 
-    @Autowired
-    private EnderecoRepository enderecoRepository;
 
     @PostMapping
     public ResponseEntity<Void> cadastra(@RequestBody @Valid EnderecoRequest enderecoRequest, @PathVariable Long id, UriComponentsBuilder uri){
@@ -26,7 +24,9 @@ public class EnderecoController {
 
         Endereco endereco = enderecoRequest.toModel(zupper);
 
-        enderecoRepository.save(endereco);
+        zupper.adiciona(endereco);
+
+        zupperRepository.save(zupper);
 
         URI location = uri.path("/zuppers/{id}")
                 .buildAndExpand(zupper.getId()).toUri();

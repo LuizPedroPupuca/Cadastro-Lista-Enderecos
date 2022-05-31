@@ -19,7 +19,7 @@ public class Zupper {
     @Enumerated(EnumType.STRING)
     private Cargo cargo;
 
-    @OneToMany(mappedBy = "zupper")
+    @OneToMany(mappedBy = "zupper", cascade = {CascadeType.ALL})
     private List<Endereco> endereco;
 
     public Zupper(String nome, String email, Cargo cargo) {
@@ -33,5 +33,9 @@ public class Zupper {
 
     public Long getId() {
         return id;
+    }
+
+    public void adiciona(Endereco endereco) {
+        this.endereco.add(endereco);
     }
 }
